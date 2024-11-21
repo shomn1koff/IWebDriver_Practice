@@ -46,6 +46,22 @@ namespace SeleniumInitialize_Tests
             Assert.That(_builder.Timeout, Is.EqualTo(timeout));
         }
 
+        [Test(Description = "Проверка headless")]
+        public void HeadlessTest()
+        {
+            IWebDriver driver = _builder.WithHeadless(true).Build();
 
+            Assert.IsNotNull(driver);
+
+            var chromeProcesses = Process.GetProcessesByName("chrome");
+            var chromedriverProcesses = Process.GetProcessesByName("chromedriver");
+
+            Thread.Sleep(5000);
+
+            Assert.IsTrue(chromeProcesses.All(p => p.MainWindowTitle == string.Empty), "Chrome процесс должен быть в headless режиме (без отображения окна).");
+            Assert.IsTrue(chromedriverProcesses.Any(), "Процесс chromedriver не найден. Он все еще должен работать.");
+
+            _builder.Dispose();
+        }
     }
 }
