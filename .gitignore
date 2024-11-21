@@ -1,0 +1,10 @@
+﻿################################################################################
+# Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/1.-IWebDriverConfig/v17/.wsuo
+/.vs/
+
+/SeleniumInitialize_Builder/obj/
+/SeleniumInitialize_Tests/bin/
+/SeleniumInitialize_Tests/obj/
