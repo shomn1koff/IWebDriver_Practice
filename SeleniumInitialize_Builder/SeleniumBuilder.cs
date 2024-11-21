@@ -13,11 +13,22 @@ namespace SeleniumInitialize_Builder
         public Dictionary<string, object> ChangedUserOptions { get; private set; }
         public TimeSpan Timeout { get; private set; }
         public string StartingURL { get; private set; }
-        
+
+        public bool IsHeadless { get; private set; } = false;
+
         public IWebDriver Build()
         {
             //Создать экземпляр драйвера, присвоить получившийся результат переменной WebDriver, вернуть в качестве результата данного метода.
-            WebDriver = new ChromeDriver();
+
+            var options = new ChromeOptions();
+
+            if (IsHeadless)
+            {
+                options.AddArgument("--headless=new");
+            }
+
+
+            WebDriver = new ChromeDriver(options);
             return WebDriver;
             //throw new NotImplementedException();
         }
@@ -30,7 +41,7 @@ namespace SeleniumInitialize_Builder
             //Закрыть браузер, очистить использованные ресурсы, по завершении переключить IsDisposed на состояние true
             //throw new NotImplementedException();
         }
-        
+
         public SeleniumBuilder ChangePort(int port)
         {
             //Реализовать смену порта, на котором развёрнут IWebDriver для этого необходимо ознакомиться с классом DriverService соответствующего драйвера (ChromeDriverService для хрома)
@@ -47,14 +58,14 @@ namespace SeleniumInitialize_Builder
             throw new NotImplementedException();
         }
 
-        public SeleniumBuilder SetUserOption(string option, object value) 
+        public SeleniumBuilder SetUserOption(string option, object value)
         {
             //Реализовать добавление пользовательской настройки.
             //Все изменения сохранить в свойстве ChangedUserOptions
             //Builder в данном методе должен возвращать сам себя
-            throw new NotImplementedException(); 
+            throw new NotImplementedException();
         }
-        
+
         public SeleniumBuilder WithTimeout(TimeSpan timeout)
         {
             //Реализовать изменение изначального таймаута запускаемого браузера
@@ -69,6 +80,12 @@ namespace SeleniumInitialize_Builder
             //Отслеживать изменения в строке StartingURL
             //Builder возвращает себя
             throw new NotImplementedException();
+        }
+
+        public SeleniumBuilder WithHeadless(bool headless)
+        {
+            IsHeadless = headless;
+            return this;
         }
     }
 }
