@@ -13,6 +13,12 @@ namespace SeleniumInitialize_Tests
             _builder = new SeleniumBuilder();
         }
 
+        [TearDown]
+        public void Teardown()
+        {
+            _builder.Dispose();
+        }
+
         [Test(Description = "Проверка корректной инициализации экземпляра IWebDriver")]
         public void BuildTest1()
         {
@@ -27,8 +33,8 @@ namespace SeleniumInitialize_Tests
             Assert.IsFalse(_builder.IsDisposed);
             _builder.Dispose();
             Assert.IsTrue(_builder.IsDisposed);
-            var processes = Process.GetProcesses("chromedriver.exe");
-            Assert.IsFalse(processes.Any());
+            var processes = Process.GetProcessesByName("chromedriver");
+            Assert.IsFalse(processes.Any(), "Процесс chromedriver все еще работает после ожидания.");
         }
 
         [Test(Description = "Проверка изменения таймаута")]
@@ -40,6 +46,6 @@ namespace SeleniumInitialize_Tests
             Assert.That(_builder.Timeout, Is.EqualTo(timeout));
         }
 
-      
+
     }
 }

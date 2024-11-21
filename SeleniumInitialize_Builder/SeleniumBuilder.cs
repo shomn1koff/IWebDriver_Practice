@@ -24,8 +24,11 @@ namespace SeleniumInitialize_Builder
 
         public void Dispose()
         {
+            WebDriver.Quit();
+            GC.SuppressFinalize(this);
+            IsDisposed = true;
             //Закрыть браузер, очистить использованные ресурсы, по завершении переключить IsDisposed на состояние true
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
         
         public SeleniumBuilder ChangePort(int port)
