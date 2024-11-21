@@ -17,7 +17,9 @@ namespace SeleniumInitialize_Builder
         public IWebDriver Build()
         {
             //Создать экземпляр драйвера, присвоить получившийся результат переменной WebDriver, вернуть в качестве результата данного метода.
-            throw new NotImplementedException();
+            WebDriver = new ChromeDriver();
+            return WebDriver;
+            //throw new NotImplementedException();
         }
 
         public void Dispose()
