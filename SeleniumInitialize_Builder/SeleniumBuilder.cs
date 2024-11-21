@@ -16,6 +16,14 @@ namespace SeleniumInitialize_Builder
 
         public bool IsHeadless { get; private set; } = false;
 
+        /*
+         ### Примечание: Задание 4 можно реализовать с помощью манипулирования объектами Options и DefaultService или же с помощью изменения процесса инициализации в методе Build().
+        ### Выбирайте способ, который вам более предпочтителен, на подумать: почему вы считаете этот способ более верным? Для интереса можно попробовать оба способа.
+
+        ## Задача № 4: Запустить с заданным таймаутом.
+        Реализовать метод WithTimeout класса SeleniumBuilder с целью запускать браузер с заданным параметром ожидания элементов.
+        Изменение таймаута отслеживать в свойстве Timeout.
+        Пройти тест - TimeoutTest*/
         public IWebDriver Build()
         {
             //Создать экземпляр драйвера, присвоить получившийся результат переменной WebDriver, вернуть в качестве результата данного метода.
@@ -27,8 +35,12 @@ namespace SeleniumInitialize_Builder
                 options.AddArgument("--headless=new");
             }
 
+            var service = ChromeDriverService.CreateDefaultService();
 
-            WebDriver = new ChromeDriver(options);
+            WebDriver = new ChromeDriver(service, options);
+
+            WebDriver.Manage().Timeouts().ImplicitWait = Timeout;
+
             return WebDriver;
             //throw new NotImplementedException();
         }
@@ -66,12 +78,16 @@ namespace SeleniumInitialize_Builder
             throw new NotImplementedException();
         }
 
+
+        
         public SeleniumBuilder WithTimeout(TimeSpan timeout)
         {
             //Реализовать изменение изначального таймаута запускаемого браузера
             //Отслеживать изменения в свойстве Timeout
             //Builder возвращает себя
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            Timeout = timeout;
+            return this;  
         }
 
         public SeleniumBuilder WithURL(string url)
